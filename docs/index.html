@@ -124,25 +124,10 @@
     .intro h1 { font-size: clamp(30px, 4vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; }
     .intro p { margin-top: 10px; max-width: 60ch; font-size: 17px; color: var(--color-text-secondary); }
 
-    /* ---------- features header + view switch */
+    /* ---------- features header */
     .features-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
     .features-head h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
     .features-head h2 span { margin-left: 6px; font-weight: 400; color: var(--color-text-tertiary); font-variant-numeric: tabular-nums; }
-    .seg {
-      display: inline-flex; padding: 2px; gap: 2px;
-      background: var(--color-bg-sunken); border-radius: 10px;
-      box-shadow: inset 0 0 0 1px var(--color-border-separator);
-    }
-    .seg label {
-      position: relative; display: inline-flex; align-items: center; gap: 6px;
-      height: 30px; padding: 0 12px; border-radius: var(--radius-control);
-      font-size: 13px; font-weight: 500; color: var(--color-text-secondary); cursor: pointer;
-      transition: color .15s ease-out, background-color .15s ease-out, box-shadow .15s ease-out;
-    }
-    .seg input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
-    .seg label:has(input:checked) { background: var(--color-bg-surface); color: var(--color-text-primary); box-shadow: var(--shadow-border); }
-    .seg label:has(input:focus-visible) { outline: 2px solid var(--color-accent-solid); outline-offset: 1px; }
-    .seg label:hover { color: var(--color-text-primary); }
 
     /* ---------- features: shared */
     .features { display: grid; gap: 16px; }
@@ -163,19 +148,44 @@
     .features[data-view="grid"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
     .features[data-view="grid"] .shot { aspect-ratio: 16 / 10; overflow: hidden; }
     .features[data-view="grid"] .shot img { height: 100%; object-fit: cover; object-position: top center; }
-    .features[data-view="grid"] .feature { cursor: zoom-in; transition: box-shadow .15s ease-out; }
-    .features[data-view="grid"] .feature:hover { box-shadow: var(--shadow-border-hover); }
+    .features[data-view="grid"] .feature { cursor: zoom-in; transition: box-shadow .15s ease-out, translate .15s ease-out; }
+    .features[data-view="grid"] .feature:hover { box-shadow: var(--shadow-border-hover); translate: 0 -2px; }
+    .feature:focus-visible { outline: 2px solid var(--color-accent-solid); outline-offset: 2px; }
     .features[data-view="grid"] .shot.wide { display: grid; place-items: center; padding: 12px; }
     .features[data-view="grid"] .shot.wide img { height: auto; object-fit: contain; border-radius: 8px; box-shadow: var(--shadow-border); }
 
-    /* list view: one column, full screenshots, text above */
-    .features[data-view="list"] { gap: 24px; }
-    .features[data-view="list"] .feature { flex-direction: column-reverse; }
-    .features[data-view="list"] .text { padding: 20px 24px; }
-    .features[data-view="list"] h3 { font-size: 17px; }
-    .features[data-view="list"] .shot { border-bottom: 0; border-top: 1px solid var(--color-border-separator); padding: 24px; display: grid; place-items: center; }
-    .features[data-view="list"] .shot img { width: auto; max-width: 100%; border-radius: 8px; box-shadow: var(--shadow-border); }
-    .features[data-view="list"] .shot.tall img { max-height: 640px; }
+
+    /* ---------- screenshot modal */
+    .modal {
+      width: min(1120px, calc(100vw - 32px)); max-width: none; max-height: calc(100dvh - 32px);
+      margin: auto; padding: 0; border: 0;
+      background: var(--color-bg-surface); color: var(--color-text-primary);
+      border-radius: var(--radius-large); box-shadow: var(--shadow-raised);
+      overflow: hidden;
+    }
+    .modal[open] { display: flex; flex-direction: column; }
+    .modal::backdrop { background: oklch(0.15 0.01 256 / 0.72); backdrop-filter: blur(4px); }
+    .modal-head { display: flex; align-items: flex-start; gap: 16px; padding: 18px 20px; border-bottom: 1px solid var(--color-border-separator); }
+    .modal-head .text { flex: 1; min-width: 0; }
+    .modal-head h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
+    .modal-head p { margin-top: 4px; font-size: 14px; color: var(--color-text-secondary); }
+    .modal-head .count { font-size: 13px; color: var(--color-text-tertiary); font-variant-numeric: tabular-nums; padding-top: 7px; }
+    .icon-btn {
+      display: inline-grid; place-items: center; width: 32px; height: 32px; flex: none;
+      border: 0; border-radius: var(--radius-control); background: transparent; color: var(--color-text-secondary); cursor: pointer;
+    }
+    .icon-btn:hover { background: var(--color-bg-sunken); color: var(--color-text-primary); }
+    .modal-body { position: relative; flex: 1; min-height: 0; display: grid; place-items: center; padding: 20px 64px; background: var(--color-bg-sunken); }
+    .modal-body img { max-width: 100%; max-height: calc(100dvh - 200px); width: auto; height: auto; border-radius: 8px; box-shadow: var(--shadow-border); }
+    .modal-nav { position: absolute; top: 50%; translate: 0 -50%; background: var(--color-bg-surface); box-shadow: var(--shadow-border); }
+    .modal-nav.prev { left: 16px; }
+    .modal-nav.next { right: 16px; }
+    @media (max-width: 600px) {
+      .modal-body { padding: 12px 12px 56px; }
+      .modal-nav { top: auto; bottom: 10px; translate: none; }
+      .modal-nav.prev { left: calc(50% - 40px); }
+      .modal-nav.next { right: calc(50% - 40px); }
+    }
 
     /* ---------- install */
     .install { padding-top: 80px; }
@@ -207,12 +217,11 @@
       .wrap { padding-inline: 16px; }
       .intro { padding-block: 40px 28px; }
       .features[data-view="grid"] { grid-template-columns: 1fr; }
-      .features[data-view="list"] .shot { padding: 12px; }
       .nav .btn.ghost { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .btn, .seg label { transition: none; }
+      .btn, .feature { transition: none; }
     }
   </style>
 </head>
@@ -232,8 +241,9 @@
   <symbol id="i-keyboard" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M7 16h10"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
-  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
-  <symbol id="i-rows" viewBox="0 0 24 24"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="18" height="7" x="3" y="14" rx="1"/></symbol>
+  <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></symbol>
+  <symbol id="i-left" viewBox="0 0 24 24"><path d="m15 18-6-6 6-6"/></symbol>
+  <symbol id="i-right" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></symbol>
 </svg>
 
 <nav class="nav">
@@ -244,7 +254,7 @@
       <a class="btn ghost sm" href="#install">Install</a>
     </div>
     <a class="btn ghost sm" href="https://github.com/Taanviir/github-qol"><svg class="i"><use href="#i-github"/></svg>Source</a>
-    <a class="btn primary sm" href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip">Download</a>
+    <a class="btn primary sm" href="https://github.com/Taanviir/github-qol/releases/latest/download/github-qol.zip">Download</a>
   </div>
 </nav>
 
@@ -257,45 +267,41 @@
   <section id="features" aria-labelledby="features-title">
     <div class="features-head">
       <h2 id="features-title">Features<span>9</span></h2>
-      <div class="seg" role="radiogroup" aria-label="View">
-        <label><input type="radio" name="view" value="grid" checked><svg class="i"><use href="#i-grid"/></svg>Grid</label>
-        <label><input type="radio" name="view" value="list"><svg class="i"><use href="#i-rows"/></svg>List</label>
-      </div>
     </div>
     <div class="features" id="features-list" data-view="grid">
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot"><img src="images/lightbox.jpg" width="1280" height="800" alt="A README image opened in an in-page lightbox" loading="lazy"></div>
         <div class="text"><h3>Image lightbox</h3><p>Images in PRs, issues and READMEs open in place instead of a new tab. <kbd>←</kbd> <kbd>→</kbd> browse every image on the page.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot"><img src="images/annotate.jpg" width="1280" height="800" alt="Screenshot editor with a box, an arrow, a text label and a redacted area" loading="lazy"></div>
         <div class="text"><h3>Annotate screenshots</h3><p><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd> in a comment box opens the screenshot in an editor first: arrows, boxes, text, redaction.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot"><img src="images/gif-player.jpg" width="1280" height="800" alt="An animated GIF paused at frame 27 of 67 with playback controls" loading="lazy"></div>
         <div class="text"><h3>GIF player</h3><p>Pause GIFs, step through them frame by frame with <kbd>,</kbd> <kbd>.</kbd>, or slow them down.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot wide"><img src="images/diff-tools.jpg" width="1280" height="350" alt="Files changed with Collapse all and Expand all buttons and an auto-collapsed pnpm-lock.yaml" loading="lazy"></div>
         <div class="text"><h3>Diff tools</h3><p>Collapse or expand every file at once. <kbd>v</kbd> marks a file viewed and jumps to the next. Lockfiles start collapsed.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot wide"><img src="images/load-all.jpg" width="892" height="230" alt="A Load all hidden items button under GitHub's 638 hidden items" loading="lazy"></div>
         <div class="text"><h3>Load all hidden items</h3><p>One button that loads every hidden comment on long PRs and issues.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot wide"><img src="images/absolute-dates.jpg" width="894" height="140" alt="Comment header reading commented on Apr 19, 2024, 4:40 PM" loading="lazy"></div>
         <div class="text"><h3>Absolute dates</h3><p>Anything older than a day shows the date and time instead of “last week”.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot wide"><img src="images/file-paths.jpg" width="894" height="180" alt="The inline code packages/vite rendered as a link" loading="lazy"></div>
         <div class="text"><h3>Clickable file paths</h3><p><code>src/app.ts:42</code> in a comment links to the file and line, if the file exists.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot"><img src="images/sticky-blame.jpg" width="1280" height="560" alt="A file open in Blame view" loading="lazy"></div>
         <div class="text"><h3>Sticky blame view</h3><p>Switch one file to Blame and the next files you open stay in Blame.</p></div>
       </article>
-      <article class="feature">
+      <article class="feature" tabindex="0" role="button">
         <div class="shot tall"><img src="images/popup.png" width="340" height="760" alt="Extension popup listing each feature with a toggle" loading="lazy"></div>
         <div class="text"><h3>Shortcuts and settings</h3><p><kbd>g</kbd> then <kbd>r</kbd> releases, <kbd>t</kbd> tags, <kbd>b</kbd> branches, <kbd>h</kbd> commits, <kbd>o</kbd> settings. Every feature has its own switch.</p></div>
       </article>
@@ -308,7 +314,7 @@
       <div class="step">
         <div class="n">1</div>
         <h3>Download and unzip</h3>
-        <p>Get the <a href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip">latest zip</a> and extract it.</p>
+        <p>Get <a href="https://github.com/Taanviir/github-qol/releases/latest/download/github-qol.zip">github-qol.zip</a> from the <a href="https://github.com/Taanviir/github-qol/releases/latest">latest release</a> and extract it.</p>
       </div>
       <div class="step">
         <div class="n">2</div>
@@ -331,28 +337,63 @@
   </div>
 </footer>
 
+<dialog class="modal" id="shot-modal" aria-labelledby="modal-title">
+  <div class="modal-head">
+    <div class="text"><h3 id="modal-title"></h3><p id="modal-desc"></p></div>
+    <span class="count" id="modal-count"></span>
+    <button class="icon-btn" id="modal-close" aria-label="Close"><svg class="i"><use href="#i-x"/></svg></button>
+  </div>
+  <div class="modal-body">
+    <button class="icon-btn modal-nav prev" id="modal-prev" aria-label="Previous feature"><svg class="i"><use href="#i-left"/></svg></button>
+    <img id="modal-img" alt="">
+    <button class="icon-btn modal-nav next" id="modal-next" aria-label="Next feature"><svg class="i"><use href="#i-right"/></svg></button>
+  </div>
+</dialog>
+
 <script>
-  // Grid / list switch; the choice is remembered per browser when storage is available.
+  // Clicking a feature card opens its screenshot full size; arrows step through the rest.
   (() => {
-    const list = document.getElementById("features-list");
-    const radios = document.querySelectorAll('input[name="view"]');
-    const apply = (view) => {
-      list.dataset.view = view;
-      radios.forEach((r) => (r.checked = r.value === view));
-      try { localStorage.setItem("ghqol-view", view); } catch {}
+    const cards = [...document.querySelectorAll(".feature")];
+    const modal = document.getElementById("shot-modal");
+    const $ = (id) => document.getElementById(id);
+    let index = 0;
+
+    const show = (i) => {
+      index = (i + cards.length) % cards.length;
+      const card = cards[index];
+      const img = card.querySelector("img");
+      $("modal-img").src = img.src;
+      $("modal-img").alt = img.alt;
+      $("modal-title").textContent = card.querySelector("h3").textContent;
+      $("modal-desc").innerHTML = card.querySelector("p").innerHTML;
+      $("modal-count").textContent = `${index + 1} / ${cards.length}`;
     };
-    try {
-      const saved = localStorage.getItem("ghqol-view");
-      if (saved === "grid" || saved === "list") apply(saved);
-    } catch {}
-    radios.forEach((r) => r.addEventListener("change", () => apply(r.value)));
-    // In grid view, clicking a card opens it full size in the list view.
-    list.addEventListener("click", (e) => {
-      const card = e.target.closest(".feature");
-      if (!card || list.dataset.view !== "grid") return;
-      apply("list");
-      card.scrollIntoView({ block: "start" });
+    const open = (i) => {
+      show(i);
+      if (!modal.open) modal.showModal();
+    };
+
+    cards.forEach((card, i) => {
+      card.addEventListener("click", () => open(i));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          open(i);
+        }
+      });
     });
+    $("modal-close").addEventListener("click", () => modal.close());
+    $("modal-prev").addEventListener("click", () => show(index - 1));
+    $("modal-next").addEventListener("click", () => show(index + 1));
+    // A click on the backdrop lands on the dialog element itself.
+    modal.addEventListener("click", (e) => {
+      if (e.target === modal) modal.close();
+    });
+    modal.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowLeft") show(index - 1);
+      if (e.key === "ArrowRight") show(index + 1);
+    });
+    modal.addEventListener("close", () => cards[index].focus({ preventScroll: true }));
   })();
 </script>
 </body>

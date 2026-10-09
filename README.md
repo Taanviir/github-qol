@@ -21,17 +21,26 @@ Small Chrome extension (Manifest V3, no build step) with quality-of-life tweaks 
 
 ## Install
 
-1. Open `chrome://extensions`
-2. Turn on **Developer mode**
-3. Click **Load unpacked** and pick this folder
+1. Download `github-qol.zip` from the [latest release](https://github.com/Taanviir/github-qol/releases/latest) and unzip it
+2. Open `chrome://extensions` and turn on **Developer mode**
+3. Click **Load unpacked** and pick the unzipped `github-qol` folder
 
-After editing the code, hit the reload icon on the extension card and refresh the GitHub tab.
+To work on it, load this repo folder directly instead. After editing, hit the reload icon on the extension card and refresh the GitHub tab.
+
+## Releasing
+
+1. Bump `version` in `manifest.json`
+2. `./scripts/package.sh` builds `dist/github-qol.zip`
+3. `gh release create vX.Y.Z dist/github-qol.zip --title vX.Y.Z --notes "..."`
+
+The site's Download links point at `releases/latest/download/github-qol.zip`, so they pick up new releases automatically.
 
 ## Layout
 
 - `src/core.js`: shared helpers (settings, DOM-change scanning, URL-change hooks). Loaded first.
 - `src/*.js`: one file per feature, each calling `ghqol.register(key, init)`.
 - `src/background.js`: fetches image bytes for the GIF player, since content scripts can't read githubusercontent.com directly.
+- `scripts/package.sh`: builds the release zip.
 - `popup/`: the toggles. Feature keys must match `DEFAULTS` in `core.js`.
 
 ## Notes
