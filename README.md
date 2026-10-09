@@ -36,5 +36,5 @@ After editing the code, hit the reload icon on the extension card and refresh th
 
 ## Notes
 
-- Diff tools are built against GitHub's classic Files changed page. If your account has the newer React review page, the buttons fall back to matching GitHub's aria-labels, which hasn't been tested.
+- Diff tools support both versions of Files changed: the classic page (`/pull/N/files`) and the newer React review page (`/pull/N/changes`) that most signed-in accounts get.
 - Clickable file paths sends one HEAD request per candidate path, capped at 60 per page.
