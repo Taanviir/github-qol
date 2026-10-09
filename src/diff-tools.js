@@ -45,19 +45,67 @@
 
   const page = () => (document.querySelector(".file.js-file, .pr-review-tools") ? classic : react);
 
-  function setExpanded(p, file, expanded) {
-    const btn = p.toggle(file);
-    if (btn && p.isExpanded(file) !== expanded) btn.click();
+  // A toggle's state (its tooltip text on the React page) can lag a click,
+  // so reading it right after would see the old state and a second click
+  // would undo the first. For a moment after clicking, trust the state we
+  // asked for instead.
+  const pending = new WeakMap(); // file element -> { expanded, at }
+
+  function expandedState(p, file) {
+    const recent = pending.get(file);
+    return recent && Date.now() - recent.at < 1000 ? recent.expanded : p.isExpanded(file);
   }
 
-  function setAll(expanded) {
-    const p = page();
-    p.files().forEach((f) => setExpanded(p, f, expanded));
+  function setExpanded(p, file, expanded) {
+    const btn = p.toggle(file);
+    if (!btn || expandedState(p, file) === expanded) return false;
+    pending.set(file, { expanded, at: Date.now() });
+    btn.click();
+    return true;
   }
+
+  // On the React page only files near the viewport have their header
+  // rendered; the rest mount as you scroll (or as files above collapse and
+  // pull them into view). So "Collapse all" runs in passes until nothing is
+  // left to do, and then keeps collapsing files that mount later until
+  // "Expand all" or navigation. Tracking by path means a file you expand by
+  // hand stays expanded even if GitHub re-mounts it.
+  let collapseMode = null; // Set of paths already handled, while active
+
+  async function setAll(expanded) {
+    const p = page();
+    collapseMode = expanded ? null : new Set();
+    for (let pass = 0; pass < 20; pass++) {
+      let changed = 0;
+      for (const f of p.files()) {
+        if (collapseMode) collapseMode.add(p.path(f));
+        if (setExpanded(p, f, expanded)) changed++;
+      }
+      if (!changed) break;
+      await new Promise((r) => setTimeout(r, 150));
+    }
+  }
+
+  function collapseNewlyMounted() {
+    if (!collapseMode) return;
+    const p = page();
+    for (const f of p.files()) {
+      const path = p.path(f);
+      if (!path || !p.toggle(f) || collapseMode.has(path)) continue;
+      collapseMode.add(path);
+      setExpanded(p, f, false);
+    }
+  }
+
+  ghqol.onUrlChange(() => {
+    collapseMode = null;
+  });
 
   // ---------- toolbar buttons + `v` ----------
 
   ghqol.register("diffTools", () => {
+    ghqol.onScan(collapseNewlyMounted);
+
     ghqol.onScan(() => {
       if (!isFilesPage() || document.querySelector(".ghqol-difftools")) return;
       const p = page();
@@ -144,7 +192,7 @@
         if (!path || !p.toggle(file)) continue; // header not rendered yet
         const noisy = NOISY.some((re) => re.test(path));
         file.dataset.ghqolNoise = noisy ? "1" : "0";
-        if (!noisy || !p.isExpanded(file)) continue;
+        if (!noisy || !expandedState(p, file)) continue;
         setExpanded(p, file, false);
         const name = p.nameEl(file);
         if (name && !name.parentElement.querySelector(".ghqol-noise-tag")) {
