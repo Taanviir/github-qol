@@ -270,39 +270,39 @@
     </div>
     <div class="features" id="features-list" data-view="grid">
       <article class="feature" tabindex="0" role="button">
-        <div class="shot"><img src="images/lightbox.jpg" width="1280" height="800" alt="A README image opened in an in-page lightbox" loading="lazy"></div>
+        <div class="shot"><img src="images/thumb/lightbox.webp" data-full="images/full/lightbox.webp" width="720" height="450" alt="A README image opened in an in-page lightbox" loading="lazy"></div>
         <div class="text"><h3>Image lightbox</h3><p>Images in PRs, issues and READMEs open in place instead of a new tab. <kbd>←</kbd> <kbd>→</kbd> browse every image on the page.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot"><img src="images/annotate.jpg" width="1280" height="800" alt="Screenshot editor with a box, an arrow, a text label and a redacted area" loading="lazy"></div>
+        <div class="shot"><img src="images/thumb/annotate.webp" data-full="images/full/annotate.webp" width="720" height="450" alt="Screenshot editor with a box, an arrow, a text label and a redacted area" loading="lazy"></div>
         <div class="text"><h3>Annotate screenshots</h3><p><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd> in a comment box opens the screenshot in an editor first: arrows, boxes, text, redaction.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot"><img src="images/gif-player.jpg" width="1280" height="800" alt="An animated GIF paused at frame 27 of 67 with playback controls" loading="lazy"></div>
+        <div class="shot"><img src="images/thumb/gif-player.webp" data-full="images/full/gif-player.webp" width="720" height="450" alt="An animated GIF paused at frame 27 of 67 with playback controls" loading="lazy"></div>
         <div class="text"><h3>GIF player</h3><p>Pause GIFs, step through them frame by frame with <kbd>,</kbd> <kbd>.</kbd>, or slow them down.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot wide"><img src="images/diff-tools.jpg" width="1280" height="350" alt="Files changed with Collapse all and Expand all buttons and an auto-collapsed pnpm-lock.yaml" loading="lazy"></div>
+        <div class="shot wide"><img src="images/thumb/diff-tools.webp" data-full="images/full/diff-tools.webp" width="720" height="197" alt="Files changed with Collapse all and Expand all buttons and an auto-collapsed pnpm-lock.yaml" loading="lazy"></div>
         <div class="text"><h3>Diff tools</h3><p>Collapse or expand every file at once. <kbd>v</kbd> marks a file viewed and jumps to the next. Lockfiles start collapsed.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot wide"><img src="images/load-all.jpg" width="892" height="230" alt="A Load all hidden items button under GitHub's 638 hidden items" loading="lazy"></div>
+        <div class="shot wide"><img src="images/thumb/load-all.webp" data-full="images/full/load-all.webp" width="720" height="186" alt="A Load all hidden items button under GitHub's 638 hidden items" loading="lazy"></div>
         <div class="text"><h3>Load all hidden items</h3><p>One button that loads every hidden comment on long PRs and issues.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot wide"><img src="images/absolute-dates.jpg" width="894" height="140" alt="Comment header reading commented on Apr 19, 2024, 4:40 PM" loading="lazy"></div>
+        <div class="shot wide"><img src="images/thumb/absolute-dates.webp" data-full="images/full/absolute-dates.webp" width="720" height="113" alt="Comment header reading commented on Apr 19, 2024, 4:40 PM" loading="lazy"></div>
         <div class="text"><h3>Absolute dates</h3><p>Anything older than a day shows the date and time instead of “last week”.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot wide"><img src="images/file-paths.jpg" width="894" height="180" alt="The inline code packages/vite rendered as a link" loading="lazy"></div>
+        <div class="shot wide"><img src="images/thumb/file-paths.webp" data-full="images/full/file-paths.webp" width="720" height="89" alt="The inline code packages/vite rendered as a link" loading="lazy"></div>
         <div class="text"><h3>Clickable file paths</h3><p><code>src/app.ts:42</code> in a comment links to the file and line, if the file exists.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot"><img src="images/sticky-blame.jpg" width="1280" height="560" alt="A file open in Blame view" loading="lazy"></div>
+        <div class="shot"><img src="images/thumb/sticky-blame.webp" data-full="images/full/sticky-blame.webp" width="720" height="315" alt="A file open in Blame view" loading="lazy"></div>
         <div class="text"><h3>Sticky blame view</h3><p>Switch one file to Blame and the next files you open stay in Blame.</p></div>
       </article>
       <article class="feature" tabindex="0" role="button">
-        <div class="shot tall"><img src="images/popup.png" width="340" height="760" alt="Extension popup listing each feature with a toggle" loading="lazy"></div>
+        <div class="shot tall"><img src="images/thumb/popup.webp" data-full="images/full/popup.webp" width="340" height="760" alt="Extension popup listing each feature with a toggle" loading="lazy"></div>
         <div class="text"><h3>Shortcuts and settings</h3><p><kbd>g</kbd> then <kbd>r</kbd> releases, <kbd>t</kbd> tags, <kbd>b</kbd> branches, <kbd>h</kbd> commits, <kbd>o</kbd> settings. Every feature has its own switch.</p></div>
       </article>
     </div>
@@ -362,7 +362,8 @@
       index = (i + cards.length) % cards.length;
       const card = cards[index];
       const img = card.querySelector("img");
-      $("modal-img").src = img.src;
+      // Cards show small thumbnails; the full-size file loads only here.
+      $("modal-img").src = img.dataset.full || img.src;
       $("modal-img").alt = img.alt;
       $("modal-title").textContent = card.querySelector("h3").textContent;
       $("modal-desc").innerHTML = card.querySelector("p").innerHTML;
