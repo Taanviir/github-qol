@@ -30,7 +30,6 @@
       --color-accent-solid-hover: var(--blue-10);
       --color-accent-text: var(--blue-11);
       --color-nav-bg: oklch(98.2% 0.003 256 / 0.8);
-      --hero-glow: oklch(54% 0.17 256 / 0.12);
 
       --shadow-border: 0 0 0 1px oklch(0 0 0 / 0.06), 0 1px 2px -1px oklch(0 0 0 / 0.06), 0 2px 4px 0 oklch(0 0 0 / 0.04);
       --shadow-border-hover: 0 0 0 1px oklch(0 0 0 / 0.08), 0 1px 2px -1px oklch(0 0 0 / 0.08), 0 2px 4px 0 oklch(0 0 0 / 0.06);
@@ -53,7 +52,6 @@
         --color-bg-surface: var(--gray-2);
         --color-bg-sunken: oklch(14.5% 0.004 256);
         --color-nav-bg: oklch(17% 0.004 256 / 0.8);
-        --hero-glow: oklch(56% 0.153 256 / 0.22);
 
         --shadow-border: 0 0 0 1px oklch(1 0 0 / 0.08);
         --shadow-border-hover: 0 0 0 1px oklch(1 0 0 / 0.14);
@@ -62,7 +60,7 @@
     }
 
     *, *::before, *::after { box-sizing: border-box; }
-    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; scroll-padding-top: 72px; }
+    html { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; scroll-behavior: smooth; scroll-padding-top: 76px; }
     body {
       margin: 0;
       background: var(--color-bg-page);
@@ -92,8 +90,8 @@
     /* ---------- buttons */
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      height: 40px; padding: 0 16px;
-      font: 500 14px/1 var(--font-sans);
+      height: 34px; padding: 0 12px;
+      font: 500 13px/1 var(--font-sans);
       border-radius: var(--radius-control);
       background: var(--color-bg-surface);
       color: var(--color-text-primary);
@@ -105,7 +103,6 @@
     .btn:active { scale: .97; }
     .btn.primary { background: var(--color-accent-solid); color: var(--color-text-on-accent); box-shadow: none; }
     .btn.primary:hover { background: var(--color-accent-solid-hover); }
-    .btn.sm { height: 34px; padding: 0 12px; font-size: 13px; }
     .btn.ghost { background: transparent; box-shadow: none; color: var(--color-text-secondary); }
     .btn.ghost:hover { color: var(--color-text-primary); background: var(--color-bg-sunken); }
 
@@ -122,150 +119,100 @@
     .wordmark img { width: 26px; height: 26px; border-radius: 7px; }
     .nav-links { display: flex; gap: 2px; margin-right: 8px; }
 
-    /* ---------- hero */
-    .hero { position: relative; padding: 88px 0 0; text-align: center; overflow: hidden; }
-    .hero::before {
-      content: ""; position: absolute; inset: -120px 0 auto; height: 640px; z-index: -1;
-      background: radial-gradient(60% 55% at 50% 30%, var(--hero-glow), transparent 70%);
-    }
-    .pill {
-      display: inline-flex; align-items: center; gap: 8px;
-      height: 30px; padding: 0 12px 0 6px;
-      font-size: 13px; font-weight: 500; color: var(--color-text-secondary);
-      background: var(--color-bg-surface); border-radius: 999px; box-shadow: var(--shadow-border);
-    }
-    .pill b { font-weight: 600; color: var(--color-accent-text); background: var(--color-accent-subtle); border-radius: 999px; padding: 2px 8px; font-size: 12px; }
-    .hero h1 {
-      margin: 24px auto 0; max-width: 14ch;
-      font-size: clamp(40px, 6.4vw, 68px); line-height: 1.04; font-weight: 600; letter-spacing: -0.035em;
-    }
-    .hero h1 span { color: var(--color-text-tertiary); }
-    .hero .lede { margin: 20px auto 0; max-width: 56ch; font-size: 18px; color: var(--color-text-secondary); }
-    .hero .ctas { margin-top: 32px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-    .hero .ctas .btn { height: 44px; padding: 0 20px; font-size: 15px; }
-    .facts { margin-top: 20px; display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; font-size: 13px; color: var(--color-text-tertiary); }
-    .facts span { display: inline-flex; align-items: center; gap: 6px; }
+    /* ---------- intro */
+    .intro { padding-block: 64px 40px; }
+    .intro h1 { font-size: clamp(30px, 4vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; }
+    .intro p { margin-top: 10px; max-width: 60ch; font-size: 17px; color: var(--color-text-secondary); }
 
-    .window {
-      margin: 64px auto 0; max-width: 1040px;
-      border-radius: var(--radius-large) var(--radius-large) 0 0;
-      background: var(--color-bg-surface);
-      box-shadow: var(--shadow-raised);
-      overflow: hidden;
-      mask-image: linear-gradient(to bottom, #000 72%, transparent);
-      -webkit-mask-image: linear-gradient(to bottom, #000 72%, transparent);
+    /* ---------- features header + view switch */
+    .features-head { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+    .features-head h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; }
+    .features-head h2 span { margin-left: 6px; font-weight: 400; color: var(--color-text-tertiary); font-variant-numeric: tabular-nums; }
+    .seg {
+      display: inline-flex; padding: 2px; gap: 2px;
+      background: var(--color-bg-sunken); border-radius: 10px;
+      box-shadow: inset 0 0 0 1px var(--color-border-separator);
     }
-    .window-bar { display: flex; align-items: center; gap: 12px; height: 40px; padding: 0 14px; border-bottom: 1px solid var(--color-border-separator); }
-    .dots { display: flex; gap: 6px; }
-    .dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--color-border-separator); }
-    .url {
-      flex: 1; max-width: 420px; margin: 0 auto; height: 24px; border-radius: 6px;
-      display: flex; align-items: center; justify-content: center; gap: 6px;
-      font-size: 12px; color: var(--color-text-tertiary); background: var(--color-bg-sunken);
+    .seg label {
+      position: relative; display: inline-flex; align-items: center; gap: 6px;
+      height: 30px; padding: 0 12px; border-radius: var(--radius-control);
+      font-size: 13px; font-weight: 500; color: var(--color-text-secondary); cursor: pointer;
+      transition: color .15s ease-out, background-color .15s ease-out, box-shadow .15s ease-out;
     }
-    .url svg.i { width: 12px; height: 12px; }
-    .dots-spacer { width: 42px; }
-    .hero-caption { margin-top: -24px; position: relative; font-size: 14px; color: var(--color-text-secondary); }
+    .seg input { position: absolute; inset: 0; margin: 0; opacity: 0; cursor: pointer; }
+    .seg label:has(input:checked) { background: var(--color-bg-surface); color: var(--color-text-primary); box-shadow: var(--shadow-border); }
+    .seg label:has(input:focus-visible) { outline: 2px solid var(--color-accent-solid); outline-offset: 1px; }
+    .seg label:hover { color: var(--color-text-primary); }
 
-    /* ---------- sections */
-    section { padding: 112px 0 0; }
-    .eyebrow { font-size: 13px; font-weight: 600; color: var(--color-accent-text); letter-spacing: 0.01em; }
-    .section-head { max-width: 640px; margin-bottom: 40px; }
-    .section-head h2 { margin-top: 8px; font-size: clamp(28px, 3.6vw, 40px); line-height: 1.1; font-weight: 600; letter-spacing: -0.025em; }
-    .section-head p { margin-top: 12px; font-size: 17px; color: var(--color-text-secondary); }
-
-    /* ---------- bento */
-    .bento { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 16px; }
-    .card {
-      grid-column: span 6;
+    /* ---------- features: shared */
+    .features { display: grid; gap: 16px; }
+    .feature {
       display: flex; flex-direction: column;
       background: var(--color-bg-surface);
       border-radius: var(--radius-large);
       box-shadow: var(--shadow-border);
       overflow: hidden;
-      transition: box-shadow .2s ease-out;
     }
-    .card:hover { box-shadow: var(--shadow-border-hover); }
-    .card.c7 { grid-column: span 7; }
-    .card.c5 { grid-column: span 5; }
-    .card.c12 { grid-column: span 12; }
-    .card-body { padding: 24px 24px 20px; }
-    .card-icon {
-      width: 32px; height: 32px; border-radius: 8px; margin-bottom: 16px;
-      display: grid; place-items: center;
-      color: var(--color-accent-text); background: var(--color-accent-subtle);
-    }
-    .card h3 { font-size: 16px; font-weight: 600; letter-spacing: -0.01em; }
-    .card p { margin-top: 6px; font-size: 14px; color: var(--color-text-secondary); }
-    .card p kbd { margin: 0 1px; }
-    .media {
-      margin-top: auto;
-      padding: 20px 0 0 24px;
-      background: var(--color-bg-sunken);
-      border-top: 1px solid var(--color-border-separator);
-    }
-    .media img { border-radius: 10px 0 0 0; box-shadow: var(--shadow-border); }
-    .media.center { padding: 24px; display: grid; place-items: center; }
-    .media.center img { border-radius: 10px; }
-    .card.split { flex-direction: row; }
-    .card.split .card-body { flex: 1; align-self: center; padding: 40px; }
-    .card.split .media { margin: 0; flex: 0 0 auto; padding: 28px 40px 0; border-top: 0; border-left: 1px solid var(--color-border-separator); }
-    .card.split .media { max-height: 440px; overflow: hidden; }
-    .card.split .media img { width: 300px; border-radius: 12px 12px 0 0;
-      mask-image: linear-gradient(to bottom, #000 70%, transparent); -webkit-mask-image: linear-gradient(to bottom, #000 70%, transparent); }
-    .shortcut-list { margin-top: 20px; display: grid; gap: 10px; }
-    .shortcut-list div { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--color-text-secondary); }
-    .shortcut-list span.keys { display: inline-flex; gap: 4px; min-width: 64px; }
+    .feature .text { padding: 18px 20px 20px; }
+    .feature h3 { font-size: 15px; font-weight: 600; letter-spacing: -0.01em; }
+    .feature p { margin-top: 4px; font-size: 14px; color: var(--color-text-secondary); }
+    .feature .shot { background: var(--color-bg-sunken); border-bottom: 1px solid var(--color-border-separator); }
+    .feature .shot img { width: 100%; }
+
+    /* grid view: uniform 16:10 thumbnails, text under */
+    .features[data-view="grid"] { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .features[data-view="grid"] .shot { aspect-ratio: 16 / 10; overflow: hidden; }
+    .features[data-view="grid"] .shot img { height: 100%; object-fit: cover; object-position: top center; }
+    .features[data-view="grid"] .feature { cursor: zoom-in; transition: box-shadow .15s ease-out; }
+    .features[data-view="grid"] .feature:hover { box-shadow: var(--shadow-border-hover); }
+    .features[data-view="grid"] .shot.wide { display: grid; place-items: center; padding: 12px; }
+    .features[data-view="grid"] .shot.wide img { height: auto; object-fit: contain; border-radius: 8px; box-shadow: var(--shadow-border); }
+
+    /* list view: one column, full screenshots, text above */
+    .features[data-view="list"] { gap: 24px; }
+    .features[data-view="list"] .feature { flex-direction: column-reverse; }
+    .features[data-view="list"] .text { padding: 20px 24px; }
+    .features[data-view="list"] h3 { font-size: 17px; }
+    .features[data-view="list"] .shot { border-bottom: 0; border-top: 1px solid var(--color-border-separator); padding: 24px; display: grid; place-items: center; }
+    .features[data-view="list"] .shot img { width: auto; max-width: 100%; border-radius: 8px; box-shadow: var(--shadow-border); }
+    .features[data-view="list"] .shot.tall img { max-height: 640px; }
 
     /* ---------- install */
+    .install { padding-top: 80px; }
+    .install h2 { font-size: 18px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 20px; }
     .steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
-    .step { padding: 24px; background: var(--color-bg-surface); border-radius: var(--radius-large); box-shadow: var(--shadow-border); }
+    .step { padding: 20px; background: var(--color-bg-surface); border-radius: var(--radius-large); box-shadow: var(--shadow-border); }
     .step .n {
-      width: 28px; height: 28px; border-radius: 50%;
+      width: 26px; height: 26px; border-radius: 50%;
       display: grid; place-items: center;
       font-size: 13px; font-weight: 600;
       color: var(--color-bg-page); background: var(--color-text-primary);
     }
-    .step h3 { margin-top: 16px; font-size: 16px; font-weight: 600; }
-    .step p { margin-top: 6px; font-size: 14px; color: var(--color-text-secondary); }
+    .step h3 { margin-top: 14px; font-size: 15px; font-weight: 600; }
+    .step p { margin-top: 4px; font-size: 14px; color: var(--color-text-secondary); }
+    .step a { color: var(--color-accent-text); }
 
-    .cta {
-      margin-top: 112px; padding: 64px 32px; text-align: center;
-      background: var(--color-bg-surface); border-radius: 20px; box-shadow: var(--shadow-border);
-      position: relative; overflow: hidden;
-    }
-    .cta::before { content: ""; position: absolute; inset: 0; z-index: 0; background: radial-gradient(50% 80% at 50% 0%, var(--hero-glow), transparent 70%); }
-    .cta > * { position: relative; }
-    .cta img { width: 56px; height: 56px; margin: 0 auto; border-radius: 14px; }
-    .cta h2 { margin-top: 20px; font-size: clamp(26px, 3.2vw, 34px); font-weight: 600; letter-spacing: -0.025em; }
-    .cta p { margin-top: 10px; color: var(--color-text-secondary); }
-    .cta .ctas { margin-top: 28px; display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
-
-    footer { padding: 48px 0 56px; }
+    footer { padding: 64px 0 48px; }
     footer .wrap { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--color-text-tertiary); }
     footer a:hover { color: var(--color-text-primary); }
 
-    @media (max-width: 860px) {
-      .card, .card.c7, .card.c5 { grid-column: span 12; }
-      .card.split { flex-direction: column; }
-      .card.split .card-body { padding: 24px; }
-      .card.split .media { border-left: 0; border-top: 1px solid var(--color-border-separator); padding: 24px 24px 0; display: grid; place-items: center; }
-      .card.split .media img { width: min(300px, 100%); }
+    @media (max-width: 960px) {
+      .features[data-view="grid"] { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
       .steps { grid-template-columns: 1fr; }
       .nav-links { display: none; }
     }
-    @media (max-width: 560px) {
+    @media (max-width: 600px) {
       .wrap { padding-inline: 16px; }
-      .hero { padding-top: 56px; }
-      .hero .lede { font-size: 16px; }
-      .window { margin-top: 40px; }
-      .window-bar .url { display: none; }
-      section { padding-top: 80px; }
+      .intro { padding-block: 40px 28px; }
+      .features[data-view="grid"] { grid-template-columns: 1fr; }
+      .features[data-view="list"] .shot { padding: 12px; }
       .nav .btn.ghost { display: none; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
-      .btn, .card { transition: none; }
+      .btn, .seg label { transition: none; }
     }
   </style>
 </head>
@@ -285,6 +232,8 @@
   <symbol id="i-keyboard" viewBox="0 0 24 24"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="M6 8h.01"/><path d="M10 8h.01"/><path d="M14 8h.01"/><path d="M18 8h.01"/><path d="M7 16h10"/></symbol>
   <symbol id="i-lock" viewBox="0 0 24 24"><rect width="18" height="11" x="3" y="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></symbol>
   <symbol id="i-check" viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></symbol>
+  <symbol id="i-grid" viewBox="0 0 24 24"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></symbol>
+  <symbol id="i-rows" viewBox="0 0 24 24"><rect width="18" height="7" x="3" y="3" rx="1"/><rect width="18" height="7" x="3" y="14" rx="1"/></symbol>
 </svg>
 
 <nav class="nav">
@@ -299,133 +248,67 @@
   </div>
 </nav>
 
-<header class="hero" id="top">
-  <div class="wrap">
-    <span class="pill"><b>Free</b>Chrome extension for github.com</span>
-    <h1>GitHub, without the <span>papercuts.</span></h1>
-    <p class="lede">Small fixes for the things that slow down code review: images that open in place, screenshots you can mark up before posting, and diffs you can actually skim.</p>
-    <div class="ctas">
-      <a class="btn primary" href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip"><svg class="i"><use href="#i-download"/></svg>Download for Chrome</a>
-      <a class="btn" href="https://github.com/Taanviir/github-qol"><svg class="i"><use href="#i-github"/></svg>View source</a>
-    </div>
-    <div class="facts">
-      <span><svg class="i"><use href="#i-check"/></svg>No account</span>
-      <span><svg class="i"><use href="#i-check"/></svg>No build step</span>
-      <span><svg class="i"><use href="#i-check"/></svg>Toggle each feature</span>
-    </div>
-    <div class="window">
-      <div class="window-bar">
-        <div class="dots"><i></i><i></i><i></i></div>
-        <div class="url"><svg class="i"><use href="#i-lock"/></svg>github.com/sharkdp/bat</div>
-        <div class="dots-spacer"></div>
-      </div>
-      <img src="images/lightbox.jpg" width="1280" height="800" alt="A README image opened in an in-page lightbox with previous and next arrows">
-    </div>
-    <p class="hero-caption">Images open in a lightbox instead of a new tab. Use <kbd>←</kbd> <kbd>→</kbd> to browse every image on the page.</p>
-  </div>
+<header class="wrap intro" id="top">
+  <h1>GitHub QoL</h1>
+  <p>A Chrome extension with small fixes for reading and reviewing code on GitHub.</p>
 </header>
 
 <main class="wrap">
-  <section id="features">
-    <div class="section-head">
-      <div class="eyebrow">Features</div>
-      <h2>Small things, every single review.</h2>
-      <p>Each one fixes something GitHub does a little wrong. Turn any of them off from the toolbar popup.</p>
+  <section id="features" aria-labelledby="features-title">
+    <div class="features-head">
+      <h2 id="features-title">Features<span>9</span></h2>
+      <div class="seg" role="radiogroup" aria-label="View">
+        <label><input type="radio" name="view" value="grid" checked><svg class="i"><use href="#i-grid"/></svg>Grid</label>
+        <label><input type="radio" name="view" value="list"><svg class="i"><use href="#i-rows"/></svg>List</label>
+      </div>
     </div>
-
-    <div class="bento">
-      <article class="card c7">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-pen"/></svg></div>
-          <h3>Annotate screenshots before posting</h3>
-          <p>Press <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd> in a comment box to add arrows, boxes, text or redactions, then attach. Plain paste works as usual.</p>
-        </div>
-        <div class="media"><img src="images/annotate.jpg" width="1280" height="800" alt="Screenshot editor with a box, an arrow, a text label and a redacted area" loading="lazy"></div>
+    <div class="features" id="features-list" data-view="grid">
+      <article class="feature">
+        <div class="shot"><img src="images/lightbox.jpg" width="1280" height="800" alt="A README image opened in an in-page lightbox" loading="lazy"></div>
+        <div class="text"><h3>Image lightbox</h3><p>Images in PRs, issues and READMEs open in place instead of a new tab. <kbd>←</kbd> <kbd>→</kbd> browse every image on the page.</p></div>
       </article>
-
-      <article class="card c5">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-play"/></svg></div>
-          <h3>Pause and step through GIFs</h3>
-          <p>Freeze a screen recording, go frame by frame with <kbd>,</kbd> <kbd>.</kbd>, or slow it to 0.25×.</p>
-        </div>
-        <div class="media"><img src="images/gif-player.jpg" width="1280" height="800" alt="An animated GIF paused at frame 27 of 67 with playback controls" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot"><img src="images/annotate.jpg" width="1280" height="800" alt="Screenshot editor with a box, an arrow, a text label and a redacted area" loading="lazy"></div>
+        <div class="text"><h3>Annotate screenshots</h3><p><kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>V</kbd> in a comment box opens the screenshot in an editor first: arrows, boxes, text, redaction.</p></div>
       </article>
-
-      <article class="card c12">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-fold"/></svg></div>
-          <h3>Diffs you can skim</h3>
-          <p>Collapse or expand every file at once. <kbd>v</kbd> marks the file as viewed and jumps to the next. Lockfiles and generated files start collapsed.</p>
-        </div>
-        <div class="media"><img src="images/diff-tools.jpg" width="1280" height="350" alt="Files changed with Collapse all and Expand all buttons and an auto-collapsed pnpm-lock.yaml" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot"><img src="images/gif-player.jpg" width="1280" height="800" alt="An animated GIF paused at frame 27 of 67 with playback controls" loading="lazy"></div>
+        <div class="text"><h3>GIF player</h3><p>Pause GIFs, step through them frame by frame with <kbd>,</kbd> <kbd>.</kbd>, or slow them down.</p></div>
       </article>
-
-      <article class="card">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-list"/></svg></div>
-          <h3>Load every hidden comment</h3>
-          <p>Long threads hide hundreds of items behind "Load more". One click loads the whole timeline.</p>
-        </div>
-        <div class="media center"><img src="images/load-all.jpg" width="892" height="230" alt="A Load all hidden items button under GitHub's 638 hidden items" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot wide"><img src="images/diff-tools.jpg" width="1280" height="350" alt="Files changed with Collapse all and Expand all buttons and an auto-collapsed pnpm-lock.yaml" loading="lazy"></div>
+        <div class="text"><h3>Diff tools</h3><p>Collapse or expand every file at once. <kbd>v</kbd> marks a file viewed and jumps to the next. Lockfiles start collapsed.</p></div>
       </article>
-
-      <article class="card">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-calendar"/></svg></div>
-          <h3>Real dates, not "last week"</h3>
-          <p>Anything older than a day shows the actual date and time.</p>
-        </div>
-        <div class="media center"><img src="images/absolute-dates.jpg" width="894" height="140" alt="Comment header reading commented on Apr 19, 2024, 4:40 PM" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot wide"><img src="images/load-all.jpg" width="892" height="230" alt="A Load all hidden items button under GitHub's 638 hidden items" loading="lazy"></div>
+        <div class="text"><h3>Load all hidden items</h3><p>One button that loads every hidden comment on long PRs and issues.</p></div>
       </article>
-
-      <article class="card">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-link"/></svg></div>
-          <h3>Clickable file paths</h3>
-          <p><code>src/app.ts:42</code> in a comment links to that file and line. Only if the file exists.</p>
-        </div>
-        <div class="media center"><img src="images/file-paths.jpg" width="894" height="180" alt="The inline code packages/vite rendered as a link" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot wide"><img src="images/absolute-dates.jpg" width="894" height="140" alt="Comment header reading commented on Apr 19, 2024, 4:40 PM" loading="lazy"></div>
+        <div class="text"><h3>Absolute dates</h3><p>Anything older than a day shows the date and time instead of “last week”.</p></div>
       </article>
-
-      <article class="card">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-history"/></svg></div>
-          <h3>Blame view that stays put</h3>
-          <p>Switch one file to Blame and the next files you open stay in Blame until you switch back.</p>
-        </div>
-        <div class="media"><img src="images/sticky-blame.jpg" width="1280" height="560" alt="A file open in Blame view" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot wide"><img src="images/file-paths.jpg" width="894" height="180" alt="The inline code packages/vite rendered as a link" loading="lazy"></div>
+        <div class="text"><h3>Clickable file paths</h3><p><code>src/app.ts:42</code> in a comment links to the file and line, if the file exists.</p></div>
       </article>
-
-      <article class="card c12 split">
-        <div class="card-body">
-          <div class="card-icon"><svg class="i"><use href="#i-keyboard"/></svg></div>
-          <h3>Shortcuts GitHub forgot, and a switch for everything</h3>
-          <p>Extra <kbd>g</kbd> shortcuts for the pages GitHub's own set skips. Every feature has its own toggle in the popup.</p>
-          <div class="shortcut-list">
-            <div><span class="keys"><kbd>g</kbd><kbd>r</kbd></span>Releases</div>
-            <div><span class="keys"><kbd>g</kbd><kbd>t</kbd></span>Tags</div>
-            <div><span class="keys"><kbd>g</kbd><kbd>b</kbd></span>Branches</div>
-            <div><span class="keys"><kbd>g</kbd><kbd>h</kbd></span>Commit history</div>
-            <div><span class="keys"><kbd>g</kbd><kbd>o</kbd></span>Settings</div>
-          </div>
-        </div>
-        <div class="media"><img src="images/popup.png" width="340" height="760" alt="Extension popup listing each feature with a toggle" loading="lazy"></div>
+      <article class="feature">
+        <div class="shot"><img src="images/sticky-blame.jpg" width="1280" height="560" alt="A file open in Blame view" loading="lazy"></div>
+        <div class="text"><h3>Sticky blame view</h3><p>Switch one file to Blame and the next files you open stay in Blame.</p></div>
+      </article>
+      <article class="feature">
+        <div class="shot tall"><img src="images/popup.png" width="340" height="760" alt="Extension popup listing each feature with a toggle" loading="lazy"></div>
+        <div class="text"><h3>Shortcuts and settings</h3><p><kbd>g</kbd> then <kbd>r</kbd> releases, <kbd>t</kbd> tags, <kbd>b</kbd> branches, <kbd>h</kbd> commits, <kbd>o</kbd> settings. Every feature has its own switch.</p></div>
       </article>
     </div>
   </section>
 
-  <section id="install">
-    <div class="section-head">
-      <div class="eyebrow">Install</div>
-      <h2>Up and running in a minute.</h2>
-      <p>It isn't on the Chrome Web Store yet, so load it straight from the download.</p>
-    </div>
+  <section class="install" id="install">
+    <h2>Install</h2>
     <div class="steps">
       <div class="step">
         <div class="n">1</div>
         <h3>Download and unzip</h3>
-        <p>Grab the <a href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip" style="color:var(--color-accent-text)">latest zip</a> and extract it anywhere.</p>
+        <p>Get the <a href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip">latest zip</a> and extract it.</p>
       </div>
       <div class="step">
         <div class="n">2</div>
@@ -438,16 +321,6 @@
         <p>Click <strong>Load unpacked</strong>, pick the folder, and refresh any open GitHub tabs.</p>
       </div>
     </div>
-
-    <div class="cta">
-      <img src="images/icon.png" alt="">
-      <h2>Make your next review a little smoother.</h2>
-      <p>Free, open on GitHub, and every feature can be switched off.</p>
-      <div class="ctas">
-        <a class="btn primary" href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip"><svg class="i"><use href="#i-download"/></svg>Download for Chrome</a>
-        <a class="btn" href="https://github.com/Taanviir/github-qol"><svg class="i"><use href="#i-github"/></svg>View source</a>
-      </div>
-    </div>
   </section>
 </main>
 
@@ -458,5 +331,29 @@
   </div>
 </footer>
 
+<script>
+  // Grid / list switch; the choice is remembered per browser when storage is available.
+  (() => {
+    const list = document.getElementById("features-list");
+    const radios = document.querySelectorAll('input[name="view"]');
+    const apply = (view) => {
+      list.dataset.view = view;
+      radios.forEach((r) => (r.checked = r.value === view));
+      try { localStorage.setItem("ghqol-view", view); } catch {}
+    };
+    try {
+      const saved = localStorage.getItem("ghqol-view");
+      if (saved === "grid" || saved === "list") apply(saved);
+    } catch {}
+    radios.forEach((r) => r.addEventListener("change", () => apply(r.value)));
+    // In grid view, clicking a card opens it full size in the list view.
+    list.addEventListener("click", (e) => {
+      const card = e.target.closest(".feature");
+      if (!card || list.dataset.view !== "grid") return;
+      apply("list");
+      card.scrollIntoView({ block: "start" });
+    });
+  })();
+</script>
 </body>
 </html>
