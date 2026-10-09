@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#2f81f7"/>
+      <stop offset="1" stop-color="#8957e5"/>
+    </linearGradient>
+    <linearGradient id="star" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffe58a"/>
+      <stop offset="1" stop-color="#f5b82e"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#bg)"/>
+  <!-- wand: dark handle, white tip pointing at the star -->
+  <line x1="58" y1="58" x2="102" y2="102" stroke="#0d1117" stroke-width="17" stroke-linecap="round"/>
+  <line x1="58" y1="58" x2="68" y2="68" stroke="#ffffff" stroke-width="17" stroke-linecap="round"/>
+  <!-- star at the tip -->
+  <path d="M40 12 l7.5 17.5 L65 37 l-17.5 7.5 L40 62 l-7.5-17.5 L15 37 l17.5-7.5 Z" fill="url(#star)"/>
+  <!-- sparkles -->
+  <path d="M90 16 l3.5 8.5 L102 28 l-8.5 3.5 L90 40 l-3.5-8.5 L78 28 l8.5-3.5 Z" fill="#ffffff"/>
+  <path d="M24 82 l2.5 5.5 L32 90 l-5.5 2.5 L24 98 l-2.5-5.5 L16 90 l5.5-2.5 Z" fill="#ffffff" opacity=".85"/>
+</svg>

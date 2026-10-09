@@ -1,0 +1,150 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GitHub QoL</title>
+  <meta name="description" content="A small Chrome extension with quality-of-life tweaks for GitHub.">
+  <link rel="icon" href="images/icon.png">
+  <style>
+    :root {
+      --bg: #ffffff;
+      --fg: #1f2328;
+      --muted: #59636e;
+      --border: #d1d9e0;
+      --card: #f6f8fa;
+      --accent: #1f883d;
+      --accent-fg: #ffffff;
+      --link: #0969da;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #0d1117;
+        --fg: #e6edf3;
+        --muted: #9198a1;
+        --border: #3d444d;
+        --card: #151b23;
+        --accent: #238636;
+        --link: #4493f8;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--fg);
+      font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    main { max-width: 960px; margin: 0 auto; padding: 56px 16px 80px; }
+    a { color: var(--link); }
+    header { text-align: center; margin-bottom: 64px; }
+    header img { width: 88px; height: 88px; }
+    h1 { font-size: 40px; margin: 16px 0 8px; letter-spacing: -0.02em; }
+    .tagline { color: var(--muted); font-size: 18px; margin: 0 0 28px; }
+    .buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+    .btn {
+      display: inline-block; padding: 10px 18px; border-radius: 6px;
+      font-weight: 600; text-decoration: none;
+      border: 1px solid var(--border); color: var(--fg); background: var(--card);
+    }
+    .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--accent-fg); }
+    section { margin: 0 0 64px; }
+    h2 { font-size: 22px; margin: 0 0 4px; }
+    section p { margin: 0 0 16px; color: var(--muted); max-width: 70ch; }
+    figure { margin: 0; }
+    figure img {
+      display: block; width: 100%; height: auto;
+      border: 1px solid var(--border); border-radius: 8px;
+    }
+    figure.narrow img { width: auto; max-width: 100%; margin: 0 auto; }
+    kbd {
+      font: 13px ui-monospace, SFMono-Regular, Menlo, monospace;
+      padding: 1px 5px; border: 1px solid var(--border); border-radius: 4px; background: var(--card);
+    }
+    code { font: 14px ui-monospace, SFMono-Regular, Menlo, monospace; }
+    .install { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 20px 24px; }
+    .install ol { margin: 0; padding-left: 20px; }
+    footer { text-align: center; color: var(--muted); font-size: 14px; }
+  </style>
+</head>
+<body>
+<main>
+  <header>
+    <img src="images/icon.png" alt="">
+    <h1>GitHub QoL</h1>
+    <p class="tagline">A small Chrome extension that smooths out the annoying bits of GitHub.</p>
+    <div class="buttons">
+      <a class="btn primary" href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip">Download</a>
+      <a class="btn" href="https://github.com/Taanviir/github-qol">View on GitHub</a>
+    </div>
+  </header>
+
+  <section>
+    <h2>Image lightbox</h2>
+    <p>Images in PRs, issues and READMEs open in a popup instead of a new tab. Use <kbd>←</kbd> <kbd>→</kbd> to browse every image on the page and <kbd>Esc</kbd> to close.</p>
+    <figure><img src="images/lightbox.jpg" alt="A README screenshot opened in an in-page lightbox" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>GIF player</h2>
+    <p>Pause a GIF, step through it frame by frame with <kbd>,</kbd> <kbd>.</kbd>, or slow it down.</p>
+    <figure><img src="images/gif-player.jpg" alt="An animated GIF paused at frame 27 of 67 with playback controls" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Annotate screenshots</h2>
+    <p>Press <kbd>Ctrl</kbd>+<kbd>Shift</kbd>+<kbd>V</kbd> in a comment box to add arrows, boxes, text or redactions to a screenshot before it's attached. Plain <kbd>Ctrl</kbd>+<kbd>V</kbd> works as usual.</p>
+    <figure><img src="images/annotate.jpg" alt="Screenshot editor with a box, an arrow, a text label and a redacted area" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Diff tools</h2>
+    <p>Collapse or expand every file at once. <kbd>v</kbd> marks the current file as viewed and jumps to the next. Lockfiles and generated files start collapsed.</p>
+    <figure><img src="images/diff-tools.jpg" alt="Files changed page with Collapse all and Expand all buttons and an auto-collapsed pnpm-lock.yaml" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Load all hidden items</h2>
+    <p>Long PRs and issues hide hundreds of comments behind "Load more". One click loads them all.</p>
+    <figure class="narrow"><img src="images/load-all.jpg" alt="A Load all hidden items button under GitHub's 638 hidden items" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Absolute dates</h2>
+    <p>Anything older than a day shows the actual date and time, not "last week".</p>
+    <figure class="narrow"><img src="images/absolute-dates.jpg" alt="Comment header reading commented on Apr 19, 2024, 4:40 PM" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Clickable file paths</h2>
+    <p>File paths in comments, like <code>src/app.ts:42</code>, link to the file and line. They're only linked if the file actually exists.</p>
+    <figure class="narrow"><img src="images/file-paths.jpg" alt="The inline code packages/vite rendered as a link" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Sticky blame view</h2>
+    <p>Switch a file to Blame and every file you open after that stays in Blame until you switch back.</p>
+    <figure><img src="images/sticky-blame.jpg" alt="A file open in Blame view" loading="lazy"></figure>
+  </section>
+
+  <section>
+    <h2>Extra shortcuts, and a switch for everything</h2>
+    <p><kbd>g</kbd> then <kbd>r</kbd> releases, <kbd>t</kbd> tags, <kbd>b</kbd> branches, <kbd>h</kbd> commits, <kbd>o</kbd> settings. Every feature can be turned off from the toolbar popup.</p>
+    <figure class="narrow"><img src="images/popup.png" alt="Extension popup listing each feature with a toggle" loading="lazy" style="max-width:340px"></figure>
+  </section>
+
+  <section class="install" id="install">
+    <h2>Install</h2>
+    <ol>
+      <li><a href="https://github.com/Taanviir/github-qol/archive/refs/heads/main.zip">Download the zip</a> and unzip it.</li>
+      <li>Open <code>chrome://extensions</code> and turn on <strong>Developer mode</strong>.</li>
+      <li>Click <strong>Load unpacked</strong> and pick the unzipped folder.</li>
+    </ol>
+  </section>
+
+  <footer>
+    <p>Not affiliated with GitHub. <a href="https://github.com/Taanviir/github-qol">Source on GitHub</a>.</p>
+  </footer>
+</main>
+</body>
+</html>
