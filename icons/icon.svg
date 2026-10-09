@@ -1,6 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
   <rect width="128" height="128" rx="30" fill="#24272c"/>
-  <!-- four-point sparkle with a small companion -->
-  <path d="M58 36c3.5 19.5 12.5 28.5 32 32-19.5 3.5-28.5 12.5-32 32-3.5-19.5-12.5-28.5-32-32 19.5-3.5 28.5-12.5 32-32Z" fill="#ffffff"/>
-  <path d="M94 20c1.4 7.8 5 11.4 12.8 12.8C99 34.2 95.4 37.8 94 45.6c-1.4-7.8-5-11.4-12.8-12.8C89 31.4 92.6 27.8 94 20Z" fill="#ffffff" opacity=".6"/>
+  <!-- a tentacle rising from the bottom edge and curling into a spiral -->
+  <path d="M34 128 C30 104 34 84 50 72 C66 60 84 62 86 76 C88 88 76 94 68 88 C62 83 66 75 72 77"
+        fill="none" stroke="#ffffff" stroke-width="15" stroke-linecap="round" stroke-linejoin="round"/>
+  <!-- suckers -->
+  <g fill="#24272c">
+    <circle cx="36.5" cy="108" r="3"/>
+    <circle cx="40" cy="91" r="3"/>
+    <circle cx="49.5" cy="76" r="2.6"/>
+  </g>
+  <!-- sparkle the tentacle is reaching for -->
+  <path d="M92 18c1.6 9 5.8 13.2 14.8 14.8-9 1.6-13.2 5.8-14.8 14.8-1.6-9-5.8-13.2-14.8-14.8 9-1.6 13.2-5.8 14.8-14.8Z" fill="#ffffff"/>
 </svg>
