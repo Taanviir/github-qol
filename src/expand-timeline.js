@@ -46,6 +46,9 @@ ghqol.register("expandTimeline", () => {
           stuck = !settled; // rate limited or failed; stop rather than spin
           break;
         }
+        // React re-renders the timeline and drops our button; keep the
+        // progress visible.
+        if (!button.isConnected) (next.closest(".ajax-pagination-form") ?? next).after(button);
         button.textContent = `Loading… (${rounds + 1})`;
         next.click();
         await new Promise((r) => setTimeout(r, 500));

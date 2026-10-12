@@ -13,6 +13,8 @@ ghqol.register("absoluteDates", () => {
       // Leave explicit formats alone (durations, "elapsed", micro "3d" etc).
       if (format && format !== "auto" && format !== "relative") continue;
       if (format === "relative") el.setAttribute("format", "auto");
+      // tense="past" keeps it relative no matter the threshold.
+      if (el.getAttribute("tense") === "past") el.removeAttribute("tense");
       el.setAttribute("threshold", "P1D");
       if (!el.hasAttribute("hour")) el.setAttribute("hour", "numeric");
       if (!el.hasAttribute("minute")) el.setAttribute("minute", "2-digit");

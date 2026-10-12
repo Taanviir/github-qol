@@ -55,7 +55,11 @@ ghqol.register("linkifyPaths", () => {
 
   function refBases(repo) {
     const bases = [];
-    const head = document.querySelector(".head-ref a[href*='/tree/']")?.getAttribute("href");
+    // Classic PR header, else the React one, which links base then head.
+    const head = (
+      document.querySelector(".head-ref a[href*='/tree/']") ??
+      document.querySelectorAll("a[class*='BranchName'][href*='/tree/']")[1]
+    )?.getAttribute("href");
     if (head && /\/pull\/\d+/.test(location.pathname)) bases.push(head.replace("/tree/", "/blob/"));
     bases.push(`/${repo.owner}/${repo.repo}/blob/HEAD`);
     return bases;
