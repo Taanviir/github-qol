@@ -27,20 +27,26 @@
   const labelOf = (btn) =>
     btn.getAttribute("aria-label") || document.getElementById(btn.getAttribute("aria-labelledby"))?.textContent || "";
 
+  // GitHub's CSS-module class names have changed shape over time
+  // ("DiffFileHeader-module__diff-file-header__x1" → "diff-file-header__x1"),
+  // so match only the stable fragment.
+  const TOOLBAR = "section[class*='toolbar__']";
+
   const react = {
     files: () => [...document.querySelectorAll("div[role='region'][id^='diff-']")],
-    header: (f) => f.querySelector("[class*='DiffFileHeader-module__diff-file-header']"),
-    path: (f) => react.header(f)?.querySelector("h3 code, h3")?.textContent.trim() ?? "",
+    header: (f) => f.querySelector("[class*='diff-file-header']"),
+    // The name is wrapped in U+200E direction marks, which would defeat `$` in NOISY.
+    path: (f) => react.header(f)?.querySelector("h3 code, h3")?.textContent.replace(/[\u200e\u200f]/g, "").trim() ?? "",
     toggle: (f) =>
       [...(react.header(f)?.querySelectorAll("button") ?? [])].find((b) => /^(collapse|expand) file$/i.test(labelOf(b).trim())),
     isExpanded: (f) => /^collapse/i.test(labelOf(react.toggle(f) ?? document.createElement("i")).trim()),
-    viewedButton: (f) => react.header(f)?.querySelector("button[aria-pressed][class*='MarkAsViewedButton'], button[aria-pressed][aria-label$='Viewed']"),
+    viewedButton: (f) => react.header(f)?.querySelector("button[aria-pressed][class*='MarkAsViewedButton' i], button[aria-pressed][aria-label$='Viewed']"),
     isViewed: (f) => react.viewedButton(f)?.getAttribute("aria-pressed") === "true",
     nameEl: (f) => react.header(f)?.querySelector("h3"),
     // Right-hand group of the sticky toolbar (viewed count, Submit review).
-    toolbarSlot: () => document.querySelector("section[class*='PullRequestFilesToolbar-module__toolbar']")?.lastElementChild,
+    toolbarSlot: () => document.querySelector(TOOLBAR)?.lastElementChild,
     stickyBottom: () =>
-      document.querySelector("section[class*='PullRequestFilesToolbar-module__toolbar']")?.getBoundingClientRect().bottom ?? 60,
+      document.querySelector(TOOLBAR)?.getBoundingClientRect().bottom ?? 60,
   };
 
   const page = () => (document.querySelector(".file.js-file, .pr-review-tools") ? classic : react);
