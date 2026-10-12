@@ -33,7 +33,8 @@
   const TOOLBAR = "section[class*='toolbar__']";
 
   const react = {
-    files: () => [...document.querySelectorAll("div[role='region'][id^='diff-']")],
+    // Each file's body holds more diff-* regions of its own; skip those.
+    files: () => [...document.querySelectorAll("div[role='region'][id^='diff-']:not(div[role='region'][id^='diff-'] *)")],
     header: (f) => f.querySelector("[class*='diff-file-header']"),
     // The name is wrapped in U+200E direction marks, which would defeat `$` in NOISY.
     path: (f) => react.header(f)?.querySelector("h3 code, h3")?.textContent.replace(/[\u200e\u200f]/g, "").trim() ?? "",
@@ -70,10 +71,9 @@
     return true;
   }
 
-  // On the React page only files near the viewport have their header
-  // rendered; the rest mount as you scroll (or as files above collapse and
-  // pull them into view). So "Collapse all" runs in passes until nothing is
-  // left to do, and then keeps collapsing files that mount later until
+  // On the classic page "Collapse all" clicks each file's toggle, in passes
+  // until nothing is left to do. On either page it then keeps collapsing
+  // files that mount later (the React page can render headers lazily) until
   // "Expand all" or navigation. Tracking by path means a file you expand by
   // hand stays expanded even if GitHub re-mounts it.
   let collapseMode = null; // Set of paths already handled, while active
@@ -81,6 +81,17 @@
   async function setAll(expanded) {
     const p = page();
     collapseMode = expanded ? null : new Set();
+    // The React page has its own "all files" toggle: Alt+click on any file's
+    // chevron sets every file to the opposite of that file's state in one
+    // render. Clicking each toggle instead swamps it on a big PR, and on a
+    // slow machine some of those clicks never land.
+    if (p === react) {
+      const files = p.files();
+      if (collapseMode) for (const f of files) collapseMode.add(p.path(f));
+      const btn = files.map((f) => expandedState(p, f) !== expanded && p.toggle(f)).find(Boolean);
+      btn?.dispatchEvent(new MouseEvent("click", { bubbles: true, cancelable: true, view: window, altKey: true }));
+      return;
+    }
     for (let pass = 0; pass < 20; pass++) {
       let changed = 0;
       for (const f of p.files()) {
