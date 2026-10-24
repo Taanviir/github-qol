@@ -19,6 +19,7 @@
     linkifyPaths: true,
     shortcuts: true,
     stickyBlame: true,
+    fileSizes: true,
     annotatePaste: true,
   };
 

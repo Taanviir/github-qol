@@ -7,6 +7,7 @@ const FEATURES = [
   ["expandTimeline", "Load all hidden items", "One button to load every hidden comment on long PRs and issues."],
   ["linkifyPaths", "Clickable file paths", "<code>src/app.ts:42</code> in comments links to the file (only if it exists)."],
   ["stickyBlame", "Sticky blame view", "Once you switch a file to Blame, other files you open stay in Blame."],
+  ["fileSizes", "File sizes", "Shows each file's size in the repo file list."],
   ["shortcuts", "Extra shortcuts", "<kbd>g</kbd> then <kbd>r</kbd> releases, <kbd>t</kbd> tags, <kbd>b</kbd> branches, <kbd>h</kbd> commits, <kbd>o</kbd> settings."],
 ];
 

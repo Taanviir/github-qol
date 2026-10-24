@@ -37,6 +37,7 @@
         "src/expand-timeline.js",
         "src/linkify-paths.js",
         "src/sticky-blame.js",
+        "src/file-sizes.js",
         "src/shortcuts.js"
       ],
       "run_at": "document_idle"

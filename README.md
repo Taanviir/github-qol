@@ -17,6 +17,7 @@ Small Chrome extension (Manifest V3, no build step) with quality-of-life tweaks 
 | **Load all hidden items** | Adds one button on long PRs and issues that keeps clicking "Load more" until the whole timeline is shown. |
 | **Clickable file paths** | Inline code like `src/app.ts:42` in comments links to that file and line. It's only linked if the file exists, and on PRs the PR's branch is tried first. |
 | **Sticky blame view** | Switch a file to Blame and other files you open stay in Blame until you switch back to Code. |
+| **File sizes** | The repo file list shows each file's size next to its name, so you know before opening it. |
 | **Extra shortcuts** | `g r` releases, `g t` tags, `g b` branches, `g h` commit history, `g o` settings. These fill gaps in GitHub's own `g` shortcuts. |
 
 ## Install
@@ -39,11 +40,12 @@ The site's Download links point at `releases/latest/download/github-qol.zip`, so
 
 - `src/core.js`: shared helpers (settings, DOM-change scanning, URL-change hooks). Loaded first.
 - `src/*.js`: one file per feature, each calling `ghqol.register(key, init)`.
-- `src/background.js`: fetches image bytes for the GIF player, since content scripts can't read githubusercontent.com directly.
+- `src/background.js`: fetches image bytes for the GIF player and file sizes, since content scripts can't read githubusercontent.com directly.
 - `scripts/package.sh`: builds the release zip.
 - `popup/`: the toggles. Feature keys must match `DEFAULTS` in `core.js`.
 
 ## Notes
 
 - Diff tools support both versions of Files changed: the classic page (`/pull/N/files`) and the newer React review page (`/pull/N/changes`) that most signed-in accounts get.
+- File sizes asks for one byte of each listed file (capped at 300 per folder) and reads the total size from the reply. It uses your GitHub session, so private repos work.
 - Clickable file paths sends one HEAD request per candidate path, capped at 60 per page.

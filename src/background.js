@@ -14,8 +14,9 @@ const ALLOWED_HOSTS = [
 const MAX_BYTES = 40 * 1024 * 1024;
 
 chrome.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
-  if (msg?.type !== "fetch-image") return;
-  fetchImage(msg.url).then(sendResponse, (err) => sendResponse({ ok: false, error: String(err) }));
+  const handler = { "fetch-image": fetchImage, "file-size": fileSize }[msg?.type];
+  if (!handler) return;
+  handler(msg.url).then(sendResponse, (err) => sendResponse({ ok: false, error: String(err) }));
   return true; // async response
 });
 
@@ -39,4 +40,17 @@ function toBase64(buf) {
     bin += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
   }
   return btoa(bin);
+}
+
+// A one-byte range request makes the browser ask for the uncompressed file,
+// and Content-Range carries its full size. /raw/ links redirect to
+// raw.githubusercontent.com with a token, so private repos work too.
+async function fileSize(path) {
+  if (!/^\/[^/]+\/[^/]+\/raw\//.test(path)) return { ok: false, error: "Not a raw path" };
+  const res = await fetch(`https://github.com${path}`, { headers: { Range: "bytes=0-0" }, credentials: "include" });
+  res.body?.cancel();
+  const total = res.headers.get("Content-Range")?.match(/\/(\d+)$/)?.[1];
+  if (total) return { ok: true, bytes: Number(total) };
+  if (res.status === 200) return { ok: true, bytes: Number(res.headers.get("Content-Length")) };
+  return { ok: false, error: `HTTP ${res.status}` };
 }
