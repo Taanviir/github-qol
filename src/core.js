@@ -20,6 +20,7 @@
     shortcuts: true,
     stickyBlame: true,
     fileSizes: true,
+    prNav: true,
     annotatePaste: true,
   };
 

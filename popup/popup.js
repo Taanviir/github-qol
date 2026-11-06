@@ -8,6 +8,7 @@ const FEATURES = [
   ["linkifyPaths", "Clickable file paths", "<code>src/app.ts:42</code> in comments links to the file (only if it exists)."],
   ["stickyBlame", "Sticky blame view", "Once you switch a file to Blame, other files you open stay in Blame."],
   ["fileSizes", "File sizes", "Shows each file's size in the repo file list."],
+  ["prNav", "Previous / next PR", "Buttons by the PR title, or <kbd>[</kbd> <kbd>]</kbd>, jump to the neighbouring PR. Issues are skipped."],
   ["shortcuts", "Extra shortcuts", "<kbd>g</kbd> then <kbd>r</kbd> releases, <kbd>t</kbd> tags, <kbd>b</kbd> branches, <kbd>h</kbd> commits, <kbd>o</kbd> settings."],
 ];
 
