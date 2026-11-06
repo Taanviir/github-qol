@@ -38,6 +38,7 @@
         "src/linkify-paths.js",
         "src/sticky-blame.js",
         "src/file-sizes.js",
+        "src/pr-nav.js",
         "src/shortcuts.js"
       ],
       "run_at": "document_idle"
