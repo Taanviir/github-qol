@@ -18,7 +18,7 @@ Small Chrome extension (Manifest V3, no build step) with quality-of-life tweaks 
 | **Clickable file paths** | Inline code like `src/app.ts:42` in comments links to that file and line. It's only linked if the file exists, and on PRs the PR's branch is tried first. |
 | **Sticky blame view** | Switch a file to Blame and other files you open stay in Blame until you switch back to Code. |
 | **File sizes** | The repo file list shows each file's size next to its name, so you know before opening it. |
-| **Previous / next PR** | Buttons next to the PR title, or `[` and `]`, go to the previous or next PR without the PR list. Numbers that are issues are skipped, and you stay on the same tab (Files changed, Commits). |
+| **Previous / next PR** | Arrow buttons in the PR header, next to Code, or `[` and `]`, go to the previous or next PR without the PR list. Numbers that are issues are skipped, and you stay on the same tab (Files changed, Commits). |
 | **Extra shortcuts** | `g r` releases, `g t` tags, `g b` branches, `g h` commit history, `g o` settings. These fill gaps in GitHub's own `g` shortcuts. |
 
 ## Install
